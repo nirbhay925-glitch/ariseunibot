@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ARISE UNIBOT | Shadow Monarch University AI - Nirbhay Pratap Singh</title>
+  <title>ARISE UNIBOT AI | Powered by Nirbhay Pratap Singh</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
     body { background: #020104; color: var(--text-main); min-height: 100vh; overflow-x: hidden; }
 
-    /* FRONT INTRO PAGE (KATANA DEMON WARRIOR) */
+    /* ================= 1. FRONT INTRO PAGE (DEMON KATANA WARRIOR) ================= */
     #front-page-portal {
       position: fixed;
       inset: 0;
@@ -116,7 +116,7 @@
       transform: translateY(-2px);
     }
 
-    /* MONSTER HAND CLAWS (LEFT & RIGHT) */
+    /* ================= 2. MONSTER HAND CLAWS (LEFT & RIGHT) ================= */
     .monster-hand-claw-left, .monster-hand-claw-right {
       position: fixed;
       top: 50%;
@@ -133,7 +133,7 @@
     .monster-hand-claw-left { left: -10px; }
     .monster-hand-claw-right { right: -10px; transform: translateY(-50%) scaleX(-1); }
 
-    /* HEADER */
+    /* ================= 3. TOP APP HEADER WITH 'NI' MONOGRAM ================= */
     header {
       background: rgba(12, 6, 18, 0.96);
       border-bottom: 2px solid var(--border-red);
@@ -203,7 +203,7 @@
       color: #fff;
     }
 
-    /* WORKSPACE */
+    /* ================= 4. WORKSPACE ================= */
     .app-workspace {
       display: flex;
       width: 100%;
@@ -212,9 +212,9 @@
     }
 
     .sidebar-dungeon {
-      width: 350px;
+      width: 340px;
       min-width: 260px;
-      max-width: 550px;
+      max-width: 500px;
       background: var(--panel-bg);
       border-right: 2px solid var(--border-red);
       display: flex;
@@ -379,20 +379,25 @@
     .chat-body-stream::-webkit-scrollbar-thumb { background: #3b060b; border-radius: 4px; }
 
     .chat-bubble {
-      max-width: 84%;
-      padding: 14px 18px;
+      max-width: 86%;
+      padding: 16px 20px;
       border-radius: 16px;
-      font-size: 0.93rem;
-      line-height: 1.55;
+      font-size: 0.94rem;
+      line-height: 1.6;
     }
 
     .bot-bubble {
       align-self: flex-start;
-      background: rgba(22, 14, 34, 0.94);
+      background: rgba(22, 14, 34, 0.95);
       border: 1px solid rgba(147, 51, 234, 0.45);
       border-top-left-radius: 4px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.6);
     }
+
+    .bot-bubble p { margin-bottom: 10px; }
+    .bot-bubble p:last-child { margin-bottom: 0; }
+    .bot-bubble ul { margin: 8px 0 10px 20px; }
+    .bot-bubble li { margin-bottom: 5px; }
 
     .user-bubble {
       align-self: flex-end;
@@ -404,7 +409,7 @@
     }
 
     .uni-result-card {
-      margin-top: 12px;
+      margin-top: 14px;
       background: #09040d;
       border: 2px solid var(--blood-red);
       border-radius: 16px;
@@ -622,11 +627,11 @@
       </div>
 
       <div class="smart-chips-bar">
-        <span class="smart-chip" onclick="handleQuickPrompt('Suggest me the best university for BCA and CSE')">💡 Best for BCA / CSE?</span>
-        <span class="smart-chip" onclick="handleQuickPrompt('Subharti University Meerut overview and dress code')">🏫 Subharti University</span>
-        <span class="smart-chip" onclick="handleQuickPrompt('Which is the best university in India for research?')">🔬 Best for Research?</span>
-        <span class="smart-chip" onclick="handleQuickPrompt('IIT Kharagpur admission and uniform details')">🎓 IIT Kharagpur</span>
-        <span class="smart-chip" onclick="handleQuickPrompt('Delhi University top courses and dress code')">🏛️ Delhi University</span>
+        <span class="smart-chip" onclick="handleQuickPrompt('Suggest me the best university for BCA and CSE in UP')">💡 Best for BCA / CSE in UP?</span>
+        <span class="smart-chip" onclick="handleQuickPrompt('Subharti University Meerut overview, courses and dress code')">🏫 Subharti University</span>
+        <span class="smart-chip" onclick="handleQuickPrompt('Explain how HTML, CSS and JavaScript work together')">💻 Explain Web Tech</span>
+        <span class="smart-chip" onclick="handleQuickPrompt('How can I prepare for BCA campus placements?')">💼 Placement Prep Tips</span>
+        <span class="smart-chip" onclick="handleQuickPrompt('Tell me a motivational thought for coding and success')">🔥 Motivation</span>
         <span class="smart-chip" onclick="handleQuickPrompt('Who created you?')">⚡ Who is your Master?</span>
       </div>
 
@@ -671,7 +676,7 @@
         localData.history = [];
         saveDeviceSession();
         chatStream.innerHTML = '';
-        addBotReply(`<strong>Chat reset successfully, ${localData.title}!</strong><br>How may I assist your academic ambitions today?`, false);
+        addBotReply(`<strong>Chat reset completed, ${localData.title}!</strong><br>I am ready for your next question or counseling request.`, false);
       }
     }
 
@@ -848,7 +853,8 @@
     function speakText(text) {
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
-        const utter = new SpeechSynthesisUtterance(text);
+        const clean = text.replace(/<[^>]*>/g, '').replace(/&bull;/g, '');
+        const utter = new SpeechSynthesisUtterance(clean);
         utter.rate = 1.0;
         utter.pitch = 0.95;
         window.speechSynthesis.speak(utter);
@@ -866,8 +872,8 @@
       portal.style.opacity = '0';
       setTimeout(() => { portal.style.display = 'none'; }, 800);
 
-      const welcomeSpeech = `Arise, ${localData.title}! I am your AI Monarch University Guide engineered by Nirbhay Pratap Singh. What university kingdom shall we inspect today?`;
-      addBotReply(`<strong>Arise, ${localData.title}!</strong><br><br>I am your supreme University AI Guide & Intelligent Advisor engineered by <strong>NIRBHAY PRATAP SINGH</strong>.<br><br>You can chat with me naturally like Gemini, ask for <strong>personalized university recommendations</strong>, query 100+ institutions with <strong>dedicated uniform/dress code dossiers</strong>, or drag the left panel to explore all territories!`, true);
+      const welcomeSpeech = `Arise, ${localData.title}! I am your AI Monarch Guide engineered by Nirbhay Pratap Singh. What would you like to explore or talk about today?`;
+      addBotReply(`<strong>Arise, ${localData.title}!</strong><br><br>I am your supreme AI Assistant and University Strategist developed under the command of <strong>NIRBHAY PRATAP SINGH</strong>.<br><br>Aap mujhse Gemini ki tarah koi bhi sawal pooch sakte hain — chahe general knowledge ho, coding/tech ho, career counseling ho, ya 100+ universities ke dress code aur admission details. Har sawal ka jawab taiyar hai!<br><br>Batayein, aaj kis vishay par baat karni hai?`, true);
       speakText(welcomeSpeech);
     }
 
@@ -902,69 +908,85 @@
       }
     }
 
+    /* ================= GEMINI MULTI-TOPIC INTELLIGENCE ENGINE ================= */
     function generateGeminiResponse(rawQuery) {
       const q = rawQuery.toLowerCase().trim();
 
-      if (q.includes('who are you') || q.includes('who created you') || q.includes('kone banaya') || q.includes('master')) {
-        return `I am <strong>Arise UniBot</strong>, an AI University Guide and Academic Intelligence Explorer engineered with pride by <strong>Nirbhay Pratap Singh</strong>. I possess full access to 100+ accredited universities, dress codes, admissions, and intelligent counseling.`;
+      // 1. Identity & Creator
+      if (q.includes('who are you') || q.includes('who created you') || q.includes('kone banaya') || q.includes('kisne banaya') || q.includes('developer') || q.includes('master') || q.includes('nirbhay')) {
+        return `Main <strong>Arise UniBot AI</strong> hoon — aapka personalized AI counselor aur conversational assistant! Mujhe <strong>NIRBHAY PRATAP SINGH</strong> ne design aur develop kiya hai.<br><br>Mere system matrix mein 100+ accredited universities ke records, coding knowledge, admission counseling, aur Gemini-style logical reasoning shamil hai, <strong>${localData.title}</strong>!`;
       }
 
-      if (q.includes('hello') || q.includes('hi') || q.includes('namaste') || q.includes('kaise ho') || q.includes('how are you')) {
-        return `Greetings, <strong>${localData.title}</strong>! I am operating at peak efficiency under the command of Nirbhay Pratap Singh. Tell me your career goals, favorite field (BCA, CSE, Medical, Law), or preferred state, and I will recommend the top universities for you.`;
+      // 2. Greetings and Friendly Chit-chat
+      if (q === 'hi' || q === 'hello' || q === 'hey' || q.includes('namaste') || q.includes('kaise ho') || q.includes('how are you')) {
+        return `Namaste <strong>${localData.title}</strong>! Main bilkul active aur ready hoon. Aap batayein, aaj aapka din kaisa chal raha hai? Kisi university ke baare mein jaanna hai, coding ki practice karni hai, ya koi naya concept discuss karna hai?`;
       }
 
-      if (q.includes('suggest') || q.includes('best university') || q.includes('top university') || q.includes('recommend') || q.includes('best college')) {
-        if (q.includes('bca') || q.includes('computer') || q.includes('coding') || q.includes('software')) {
-          return `Based on comprehensive academic strength and career pathways, <strong>${localData.title}</strong>, here are top recommendations:<br><br>
-          1. <strong>Swami Vivekanand Subharti University (Meerut):</strong> Renowned for high-tech computing labs, BCA curricula, and active campus placements in NCR.<br>
-          2. <strong>IIT Kharagpur / IIT Delhi:</strong> The absolute zenith for computer engineering and AI algorithms.<br>
-          3. <strong>BITS Pilani:</strong> Outstanding industry network with zero attendance restriction.<br>
-          4. <strong>University of Delhi (DU):</strong> Exceptional theoretical foundation in B.Sc CS and MCA programs.<br><br>
-          Would you like to inspect Subharti University or view official links and dress codes?`;
+      // 3. Coding & Web Technology Inquiries
+      if (q.includes('html') || q.includes('javascript') || q.includes('css') || q.includes('python') || q.includes('coding') || q.includes('web development')) {
+        return `Web development aur coding ke baare mein baat karein toh, <strong>${localData.title}</strong>:<br><br>
+        1. <strong>HTML5 (Structure):</strong> Webpage ki skeleton banata hai (headings, forms, buttons).<br>
+        2. <strong>CSS3 (Styling):</strong> Website ko visual look, animations aur colors pradan karta hai.<br>
+        3. <strong>JavaScript (Logic):</strong> Page ko interactive banata hai (APIs fetch karna, speech synthesis, event handling).<br>
+        4. <strong>Modern Frameworks:</strong> React, Node.js aur REST APIs production software ke pillars hain.<br><br>
+        Kya aap kisi specific programming language ya project code ke baare mein jaanna chahte hain?`;
+      }
+
+      // 4. Motivation & Philosophy
+      if (q.includes('motivation') || q.includes('motivate') || q.includes('quotes') || q.includes('shayari') || q.includes('hausla')) {
+        return `Ek sunehra vichaar aapke liye, <strong>${localData.title}</strong>:<br><br>
+        <em>"Manzil mile na mile yeh toh muqaddar ki baat hai, hum koshish bhi na karein yeh toh galat baat hai."</em><br><br>
+        Chahe computer programming ho ya life ka koi bhi bada goal — consistency aur daily effort hi humein peak par le jaate hain. Aap lagataar mehnat karein, kamiyabi nishchit hai!`;
+      }
+
+      // 5. University Comparison Queries
+      if (q.includes(' vs ') || q.includes('versus') || (q.includes('better') && q.includes('or'))) {
+        return `Comparative analysis report aapke liye, <strong>${localData.title}</strong>:<br><br>
+        &bull; <strong>Premier Public IITs/Central Universities:</strong> Research funding, low tuition, aur historic brand recognition ke liye best hain.<br>
+        &bull; <strong>Top Tier Autonomous/Private (BITS, Subharti, VIT):</strong> High-tech modern infrastructure, flexible curriculum, aur fast corporate industry networking provide karte hain.<br><br>
+        Agar budget aur academic rigor priority hai toh government central institutes best hain; agar modern labs aur flexible industry exposure chahiye toh leading autonomous/private institutes shandaar hain!`;
+      }
+
+      // 6. University Recommendations
+      if (q.includes('suggest') || q.includes('best university') || q.includes('top university') || q.includes('recommend') || q.includes('best college') || q.includes('kisme admission')) {
+        if (q.includes('bca') || q.includes('cse') || q.includes('computer')) {
+          return `Tech aur Computer Applications (BCA/CSE) ke liye top recommendations, <strong>${localData.title}</strong>:<br><br>
+          1. <strong>Swami Vivekanand Subharti University (Meerut):</strong> NCR/Western UP mein BCA aur IT ke liye top-tier choice — modern computer labs aur established placement cell.<br>
+          2. <strong>IIT Kharagpur / IIT Delhi:</strong> National level par computer engineering aur advanced AI research ka pinnacle.<br>
+          3. <strong>University of Delhi (DU):</strong> Theoretical foundations aur B.Sc Computer Science ke liye renowned.<br>
+          4. <strong>BITS Pilani:</strong> Outstanding coding culture aur direct multinational campus recruitments.<br><br>
+          Aap kis sheher ya budget mein dekh rahe hain?`;
         }
         if (q.includes('medical') || q.includes('mbbs') || q.includes('doctor')) {
-          return `For Medical and Clinical Healthcare, <strong>${localData.title}</strong>, I recommend:<br><br>
-          1. <strong>AIIMS New Delhi:</strong> The foremost apex medical citadel in India.<br>
-          2. <strong>Subharti University (Subharti Medical College):</strong> Exceptional multi-specialty hospital infrastructure and medical training labs.<br>
-          3. <strong>KGMU Lucknow:</strong> Historic medical leadership and clinical excellence.`;
+          return `Medical field ke liye top institutes:<br><br>
+          &bull; <strong>AIIMS New Delhi:</strong> Desh ka sarvochha medical institution.<br>
+          &bull; <strong>Subharti Medical College (SVSU):</strong> Expansive hospital campus, modern clinical labs aur internship facilities.<br>
+          &bull; <strong>KGMU Lucknow:</strong> Historic medical excellence.`;
         }
-        return `Understood, <strong>${localData.title}</strong>. Across India's educational landscape, the undisputed leaders are:<br><br>
-        &bull; <strong>Technical & AI:</strong> IIT Bombay, IIT Kharagpur, IIT Delhi, BITS Pilani.<br>
-        &bull; <strong>NCR / Uttar Pradesh Hubs:</strong> Swami Vivekanand Subharti University, CCSU Meerut, AKTU Lucknow.<br>
-        &bull; <strong>Global Ivy League:</strong> Harvard University, MIT USA, Stanford University.<br><br>
-        Tell me your preferred course or budget, and I will filter the ideal kingdom for you!`;
+        return `Aapke liye curated higher education list, <strong>${localData.title}</strong>:<br><br>
+        &bull; <strong>Engineering & Tech:</strong> IIT Bombay, IIT Kharagpur, BITS Pilani.<br>
+        &bull; <strong>UP/NCR Higher Education:</strong> Swami Vivekanand Subharti University, CCSU Meerut, AKTU.<br>
+        &bull; <strong>Global Ivy League:</strong> Harvard University, MIT USA, Stanford.<br><br>
+        Aapko kaunse course ke baare mein detailed dossier dekhna hai?`;
       }
 
+      // 7. Direct University Match in Database
       const matched = universityRegistry.find(u => 
         u.name.toLowerCase().includes(q) || 
         u.keys.some(k => q.includes(k) || k.includes(q))
       );
 
-      if (matched) return buildUniversityCardHtml(matched);
+      if (matched) {
+        return buildUniversityCardHtml(matched);
+      }
 
+      // 8. General Open-Ended Gemini Response (Never refuses to answer)
       return `
-        I have analyzed your query: <strong>"${rawQuery}"</strong>, <strong>${localData.title}</strong>.<br><br>
-        While compiling verified data records, here is an institutional snapshot:<br>
-        <div class="uni-result-card">
-          <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80" alt="Campus View" class="uni-photo" />
-          <div class="uni-result-body">
-            <div class="uni-card-name">${rawQuery.toUpperCase()}</div>
-            <div class="uni-card-loc">📍 Autonomous Higher Education Network</div>
-            <p style="font-size: 0.85rem; color: #cbd5e1;">A verified institutional entity recognized for higher education curricula, professional diplomas, and degrees.</p>
-            <div class="uni-meta-grid">
-              <div class="uni-meta-cell"><strong>Recognition</strong>UGC / AICTE Framework</div>
-              <div class="uni-meta-cell"><strong>Admissions</strong>Merit / National Entrance</div>
-              <div class="uni-meta-cell" style="grid-column: span 2;"><strong>Key Disciplines</strong>BCA, B.Tech, MCA, Sciences, Management</div>
-            </div>
-            <div class="dress-code-column">
-              <div class="dress-title">👔 Mandatory Dress Code & Uniform Specification</div>
-              <div class="dress-details">Standard formal smart-casual or departmental dress attire designated by institutional regulations.</div>
-            </div>
-            <a class="uni-portal-btn" href="https://www.google.com/search?q=${encodeURIComponent(rawQuery + ' official university portal')}" target="_blank" rel="noopener noreferrer">
-              Explore Official Portal 🌐
-            </a>
-          </div>
-        </div>
+        Maine aapke sawal: <strong>"${rawQuery}"</strong> ko analyze kiya hai, <strong>${localData.title}</strong>.<br><br>
+        Higher education, career growth aur technology domain mein yeh vishay kaafi mahatvapurna hai. Iske do mukhya pehlu hain:<br>
+        1. <strong>Theoretical Foundation:</strong> Buniyadi concept aur clear framework samajhna sabse pehla kadam hota hai.<br>
+        2. <strong>Practical Implementation:</strong> Chahe coding ho, admission exam prep ho, ya career planning — daily execution hi result deta hai.<br><br>
+        Aap is baare mein thoda aur detail batayein ya left panel se kisi bhi university territory ko explore karein!
       `;
     }
 
@@ -984,6 +1006,7 @@
               <div class="uni-meta-cell" style="grid-column: span 2;"><strong>Flagship Programs</strong>${uni.courses}</div>
             </div>
 
+            <!-- DEDICATED DRESS CODE & UNIFORM SPECIFICATION -->
             <div class="dress-code-column">
               <div class="dress-title">👔 Mandatory Dress Code & Uniform Specification</div>
               <div class="dress-details">${uni.dress}</div>
@@ -1007,7 +1030,7 @@
       setTimeout(() => {
         const responseHtml = generateGeminiResponse(q);
         addBotReply(responseHtml, true);
-        speakText(`Dossier ready, ${localData.title}. Displaying requested insights.`);
+        speakText(`Response ready, ${localData.title}.`);
       }, 350);
     }
 
@@ -1029,7 +1052,7 @@
           addUserMessage(`Inspect ${u.name}`);
           setTimeout(() => {
             addBotReply(buildUniversityCardHtml(u), true);
-            speakText(`Presenting verified records for ${u.name}, ${localData.title}.`);
+            speakText(`Presenting verified dossier for ${u.name}, ${localData.title}.`);
           }, 250);
         };
         item.innerHTML = `
@@ -1050,7 +1073,7 @@
     }
 
     function triggerCameraCapture() {
-      addBotReply(`📷 <strong>Camera Activated, ${localData.title}:</strong> Visual sensory camera scanned the surrounding campus grounds. Architectural pattern matched to university database.`);
+      addBotReply(`📷 <strong>Camera Activated, ${localData.title}:</strong> Visual sensory camera scanned the surrounding grounds. Architectural patterns matched to university database.`);
       speakText(`Visual camera engaged, ${localData.title}.`);
     }
 
@@ -1058,7 +1081,7 @@
       const file = e.target.files[0];
       if (file) {
         addUserMessage(`[Uploaded Campus Photo: ${file.name}]`);
-        addBotReply(`🔍 Photo analysis concluded, <strong>${localData.title}</strong>! The building structure and emblem match verified university campus records.`);
+        addBotReply(`🔍 Photo analysis concluded, <strong>${localData.title}</strong>! The building structure matches verified institutional campus records.`);
         speakText(`Campus photo verified, ${localData.title}.`);
       }
     }
