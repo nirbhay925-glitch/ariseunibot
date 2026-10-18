@@ -1,21 +1,4 @@
-# Prepare complete single-file index.html for repository "ariseunibot"
-# Requirements:
-# 1. Repository name: ariseunibot
-# 2. Solo Leveling / Shadow Monarch aesthetic (Sung Jin-Woo art, Red & Black front page, 'NIRBHAY PRATAP SINGH' on front page, 'NI' monogram on internal workspace, Kaisel Dragon sticker/radar, giant Monster claws gripping the UI from left and right).
-# 3. Honorific selector ("My Lord" / "My Queen") with live spoken voice synthesis ("Arise, My Lord! / Arise, My Queen!").
-# 4. Gemini-like intelligent conversational AI capabilities:
-#    - Chit-chat handling (greeting, who made you, how are you, recommend best universities based on user requirements).
-#    - Recommender logic: suggests best universities according to user goals (e.g., best for tech/CSE -> IIT/BITS, best in UP/Meerut -> Subharti/CCSU, management -> IIMs, medical -> AIIMS).
-#    - Deep Q&A like Gemini for courses, fees, placements, rankings, culture, admission.
-# 5. Dedicated "Mandatory Dress Code & Uniform Specification" column in every university dossier.
-# 6. Multi-user independent state & privacy:
-#    - Uses client-side LocalStorage / SessionStorage scoped strictly to that local browser instance.
-#    - If two users open the website simultaneously on different devices (laptop, mobile, friend's laptop), their chats, search history, and honorific selections NEVER mix or leak.
-#    - Each device starts clean or continues its own local session independently.
-# 7. Draggable / Resizable / Collapsible University Sidebar directory with quick filter, verified logos, and direct card generation.
-# 8. Complete search control deck: Take Photo, Add Photo upload, and Speech Recognition voice input.
-
-html_content = r'''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -27,19 +10,19 @@ html_content = r'''<!DOCTYPE html>
   <style>
     :root {
       --blood-red: #ff1122;
-      --blood-glow: rgba(255, 17, 34, 0.55);
+      --blood-glow: rgba(255, 17, 34, 0.6);
       --dark-crimson: #2b0005;
       --shadow-purple: #9333ea;
-      --panel-bg: rgba(14, 8, 22, 0.94);
-      --border-red: rgba(255, 17, 34, 0.38);
+      --panel-bg: rgba(14, 8, 22, 0.95);
+      --border-red: rgba(255, 17, 34, 0.4);
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-    body { background: #020104; color: var(--text-main); min-height: 100vh; overflow-x: hidden; user-select: none; }
+    body { background: #020104; color: var(--text-main); min-height: 100vh; overflow-x: hidden; }
 
-    /* ================= 1. FRONT INTRO PAGE (RED & BLACK SOLO LEVELING) ================= */
+    /* FRONT INTRO PAGE (KATANA DEMON WARRIOR) */
     #front-page-portal {
       position: fixed;
       inset: 0;
@@ -55,12 +38,13 @@ html_content = r'''<!DOCTYPE html>
     }
 
     .solo-character-avatar {
-      width: 220px;
-      height: 220px;
+      width: 240px;
+      height: 240px;
       border-radius: 50%;
       border: 4px solid var(--blood-red);
       box-shadow: 0 0 35px var(--blood-glow), inset 0 0 25px #000;
       object-fit: cover;
+      object-position: top center;
       margin-bottom: 18px;
       animation: pulseAura 2.2s infinite alternate ease-in-out;
     }
@@ -93,7 +77,7 @@ html_content = r'''<!DOCTYPE html>
     }
 
     .title-prompt-box {
-      background: rgba(22, 2, 6, 0.88);
+      background: rgba(22, 2, 6, 0.9);
       border: 1px solid var(--blood-red);
       border-radius: 16px;
       padding: 18px 24px;
@@ -132,21 +116,24 @@ html_content = r'''<!DOCTYPE html>
       transform: translateY(-2px);
     }
 
-    /* ================= 2. GIANT MONSTER CLAWS HOLDING THE UI ================= */
-    .monster-claw-left, .monster-claw-right {
+    /* MONSTER HAND CLAWS (LEFT & RIGHT) */
+    .monster-hand-claw-left, .monster-hand-claw-right {
       position: fixed;
       top: 50%;
       transform: translateY(-50%);
-      width: 105px;
-      height: 580px;
+      width: 140px;
+      height: auto;
+      max-height: 480px;
       pointer-events: none;
       z-index: 1000;
-      filter: drop-shadow(0 0 16px #ff1122);
+      filter: drop-shadow(0 0 18px rgba(255, 17, 34, 0.8)) contrast(120%);
+      opacity: 0.92;
+      transition: all 0.3s ease;
     }
-    .monster-claw-left { left: 0; }
-    .monster-claw-right { right: 0; transform: translateY(-50%) scaleX(-1); }
+    .monster-hand-claw-left { left: -10px; }
+    .monster-hand-claw-right { right: -10px; transform: translateY(-50%) scaleX(-1); }
 
-    /* ================= 3. TOP HEADER WITH 'NI' INSIGNIA ================= */
+    /* HEADER */
     header {
       background: rgba(12, 6, 18, 0.96);
       border-bottom: 2px solid var(--border-red);
@@ -160,11 +147,7 @@ html_content = r'''<!DOCTYPE html>
       backdrop-filter: blur(12px);
     }
 
-    .insignia-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
+    .insignia-wrapper { display: flex; align-items: center; gap: 14px; }
 
     .ni-insignia-badge {
       width: 44px;
@@ -197,11 +180,7 @@ html_content = r'''<!DOCTYPE html>
       text-transform: uppercase;
     }
 
-    .header-controls {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .header-controls { display: flex; align-items: center; gap: 12px; }
 
     .header-btn {
       background: rgba(255, 255, 255, 0.05);
@@ -224,7 +203,7 @@ html_content = r'''<!DOCTYPE html>
       color: #fff;
     }
 
-    /* ================= 4. MAIN WORKSPACE WITH DRAGGABLE SIDEBAR ================= */
+    /* WORKSPACE */
     .app-workspace {
       display: flex;
       width: 100%;
@@ -232,7 +211,6 @@ html_content = r'''<!DOCTYPE html>
       position: relative;
     }
 
-    /* Draggable/Resizable University Sidebar */
     .sidebar-dungeon {
       width: 350px;
       min-width: 260px;
@@ -314,20 +292,17 @@ html_content = r'''<!DOCTYPE html>
       flex-shrink: 0;
     }
 
-    /* Drag Handle Separator */
     .drag-resizer {
       width: 6px;
       cursor: col-resize;
       background: rgba(255, 17, 34, 0.2);
       transition: background 0.2s;
     }
-
     .drag-resizer:hover, .drag-resizer.resizing {
       background: var(--blood-red);
       box-shadow: 0 0 12px var(--blood-red);
     }
 
-    /* Main Right Screen */
     .main-screen {
       flex: 1;
       background: #06020c;
@@ -337,7 +312,6 @@ html_content = r'''<!DOCTYPE html>
       position: relative;
     }
 
-    /* Anime Kaisel Dragon Header Banner */
     .dragon-radar-bar {
       background: linear-gradient(90deg, #240005 0%, #110524 50%, #240005 100%);
       border-bottom: 1px solid var(--border-red);
@@ -347,11 +321,7 @@ html_content = r'''<!DOCTYPE html>
       justify-content: space-between;
     }
 
-    .dragon-badge-wrap {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .dragon-badge-wrap { display: flex; align-items: center; gap: 12px; }
 
     .dragon-sticker-img {
       width: 44px;
@@ -369,7 +339,6 @@ html_content = r'''<!DOCTYPE html>
       letter-spacing: 0.08em;
     }
 
-    /* Smart Suggestion Chips */
     .smart-chips-bar {
       padding: 8px 18px;
       display: flex;
@@ -391,14 +360,12 @@ html_content = r'''<!DOCTYPE html>
       white-space: nowrap;
       transition: 0.2s;
     }
-
     .smart-chip:hover {
       background: rgba(255, 17, 34, 0.25);
       border-color: var(--blood-red);
       color: #fff;
     }
 
-    /* Interactive Chat Body */
     .chat-body-stream {
       flex: 1;
       padding: 20px;
@@ -436,7 +403,6 @@ html_content = r'''<!DOCTYPE html>
       box-shadow: 0 4px 18px rgba(255, 17, 34, 0.35);
     }
 
-    /* Rich University Card With Mandatory Dress Code */
     .uni-result-card {
       margin-top: 12px;
       background: #09040d;
@@ -461,20 +427,10 @@ html_content = r'''<!DOCTYPE html>
       gap: 12px;
     }
 
-    .uni-card-name {
-      font-family: 'Cinzel', serif;
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: #fff;
-    }
-
+    .uni-card-name { font-family: 'Cinzel', serif; font-size: 1.25rem; font-weight: 800; color: #fff; }
     .uni-card-loc { color: #38bdf8; font-size: 0.85rem; font-weight: 600; }
 
-    .uni-meta-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
+    .uni-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
     .uni-meta-cell {
       background: rgba(255, 255, 255, 0.04);
@@ -492,7 +448,6 @@ html_content = r'''<!DOCTYPE html>
       margin-bottom: 2px;
     }
 
-    /* MANDATORY DRESS CODE / UNIFORM COLUMN */
     .dress-code-column {
       background: linear-gradient(135deg, rgba(255, 17, 34, 0.12) 0%, rgba(147, 51, 234, 0.12) 100%);
       border: 2px dashed var(--blood-red);
@@ -533,7 +488,6 @@ html_content = r'''<!DOCTYPE html>
 
     .uni-portal-btn:hover { box-shadow: 0 0 25px var(--blood-red); transform: translateY(-2px); }
 
-    /* Search Control Deck */
     .search-panel-tools {
       border-top: 2px solid var(--border-red);
       background: rgba(10, 5, 15, 0.98);
@@ -543,11 +497,7 @@ html_content = r'''<!DOCTYPE html>
       gap: 10px;
     }
 
-    .tool-actions-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .tool-actions-row { display: flex; align-items: center; gap: 10px; }
 
     .action-icon-btn {
       background: rgba(255, 255, 255, 0.05);
@@ -600,13 +550,10 @@ html_content = r'''<!DOCTYPE html>
       transition: 0.2s;
     }
 
-    .search-trigger-btn:hover {
-      box-shadow: 0 0 30px var(--blood-red);
-      transform: scale(1.02);
-    }
+    .search-trigger-btn:hover { box-shadow: 0 0 30px var(--blood-red); transform: scale(1.02); }
 
     @media (max-width: 900px) {
-      .monster-claw-left, .monster-claw-right { display: none; }
+      .monster-hand-claw-left, .monster-hand-claw-right { display: none; }
       .sidebar-dungeon { position: absolute; left: 0; top: 0; bottom: 0; z-index: 800; transform: translateX(-100%); transition: transform 0.3s; }
       .sidebar-dungeon.open { transform: translateX(0); }
       .drag-resizer { display: none; }
@@ -615,9 +562,9 @@ html_content = r'''<!DOCTYPE html>
 </head>
 <body>
 
-  <!-- 1. SOLO LEVELING RED & BLACK INTRO OVERLAY -->
+  <!-- FRONT PAGE (KATANA DEMON WARRIOR) -->
   <div id="front-page-portal">
-    <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80" alt="Solo Leveling Shadow Monarch" class="solo-character-avatar" />
+    <img src="katana.jpg" onerror="this.src='https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80'" alt="Katana Demon Warrior" class="solo-character-avatar" />
     <h1 class="front-developer-name">NIRBHAY PRATAP SINGH</h1>
     <div class="front-subtitle">ARISE UNIBOT &bull; SHADOW MONARCH AI SYSTEM</div>
 
@@ -630,20 +577,11 @@ html_content = r'''<!DOCTYPE html>
     </div>
   </div>
 
-  <!-- 2. MONSTER CLAWS HOLDING THE UI FROM LEFT & RIGHT -->
-  <svg class="monster-claw-left" viewBox="0 0 120 600" fill="none">
-    <path d="M0,0 C50,80 110,120 110,180 C110,210 60,230 30,260 C90,290 115,340 115,390 C115,420 70,450 30,480 C90,520 110,560 0,600 Z" fill="#300005" stroke="#ff1122" stroke-width="4"/>
-    <circle cx="110" cy="180" r="10" fill="#ff1122" filter="drop-shadow(0 0 8px #ff1122)" />
-    <circle cx="115" cy="390" r="10" fill="#ff1122" filter="drop-shadow(0 0 8px #ff1122)" />
-  </svg>
+  <!-- MONSTER HAND CLAWS (LEFT & RIGHT) -->
+  <img src="clwa.png" class="monster-hand-claw-left" alt="Monster Claw Left" onerror="this.style.display='none'" />
+  <img src="clwa.png" class="monster-hand-claw-right" alt="Monster Claw Right" onerror="this.style.display='none'" />
 
-  <svg class="monster-claw-right" viewBox="0 0 120 600" fill="none">
-    <path d="M0,0 C50,80 110,120 110,180 C110,210 60,230 30,260 C90,290 115,340 115,390 C115,420 70,450 30,480 C90,520 110,560 0,600 Z" fill="#300005" stroke="#ff1122" stroke-width="4"/>
-    <circle cx="110" cy="180" r="10" fill="#ff1122" filter="drop-shadow(0 0 8px #ff1122)" />
-    <circle cx="115" cy="390" r="10" fill="#ff1122" filter="drop-shadow(0 0 8px #ff1122)" />
-  </svg>
-
-  <!-- 3. TOP APP HEADER WITH 'NI' MONOGRAM -->
+  <!-- HEADER -->
   <header>
     <div class="insignia-wrapper">
       <div class="ni-insignia-badge">NI</div>
@@ -658,9 +596,8 @@ html_content = r'''<!DOCTYPE html>
     </div>
   </header>
 
-  <!-- 4. WORKSPACE: DRAGGABLE SIDEBAR + CHAT ENGINE -->
+  <!-- WORKSPACE -->
   <div class="app-workspace">
-    <!-- Left Draggable Sidebar -->
     <div class="sidebar-dungeon" id="sidebarPanel">
       <h3>
         Territories <span id="uniCountSpan">(107)</span>
@@ -670,10 +607,8 @@ html_content = r'''<!DOCTYPE html>
       <div class="uni-scrollable-list" id="uniListContainer"></div>
     </div>
 
-    <!-- Draggable Separator -->
     <div class="drag-resizer" id="dragResizer" title="Drag to resize directory"></div>
 
-    <!-- Right Screen: Kaisel Dragon Header & Conversational AI -->
     <div class="main-screen">
       <div class="dragon-radar-bar">
         <div class="dragon-badge-wrap">
@@ -686,7 +621,6 @@ html_content = r'''<!DOCTYPE html>
         <span style="font-size: 0.75rem; color: #38bdf8; font-weight: 600;">🔒 Device-Isolated Private Instance</span>
       </div>
 
-      <!-- Smart Suggestion Chips -->
       <div class="smart-chips-bar">
         <span class="smart-chip" onclick="handleQuickPrompt('Suggest me the best university for BCA and CSE')">💡 Best for BCA / CSE?</span>
         <span class="smart-chip" onclick="handleQuickPrompt('Subharti University Meerut overview and dress code')">🏫 Subharti University</span>
@@ -698,7 +632,6 @@ html_content = r'''<!DOCTYPE html>
 
       <div class="chat-body-stream" id="chatStream"></div>
 
-      <!-- Search Control Deck -->
       <div class="search-panel-tools">
         <div class="tool-actions-row">
           <button class="action-icon-btn" onclick="triggerCameraCapture()">📷 Take Photo</button>
@@ -719,29 +652,18 @@ html_content = r'''<!DOCTYPE html>
   </div>
 
   <script>
-    /* ================= DEVICE-SCOPED INDEPENDENT STORAGE ================= */
     const STORAGE_KEY = 'arise_unibot_session_v1';
-    let localData = {
-      title: 'My Lord',
-      history: [],
-      hasOpened: false
-    };
+    let localData = { title: 'My Lord', history: [], hasOpened: false };
 
     function loadDeviceSession() {
       try {
         const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) {
-          localData = JSON.parse(saved);
-        }
-      } catch (e) {
-        console.warn('Storage isolated on this client.');
-      }
+        if (saved) localData = JSON.parse(saved);
+      } catch (e) {}
     }
 
     function saveDeviceSession() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(localData));
-      } catch (e) {}
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(localData)); } catch (e) {}
     }
 
     function clearCurrentDeviceSession() {
@@ -753,7 +675,6 @@ html_content = r'''<!DOCTYPE html>
       }
     }
 
-    /* ================= 100+ VERIFIED UNIVERSITIES REGISTRY ================= */
     const universityRegistry = [
       {
         name: "Swami Vivekanand Subharti University",
@@ -893,7 +814,6 @@ html_content = r'''<!DOCTYPE html>
       }
     });
 
-    /* ================= DOM ELEMENTS ================= */
     const portal = document.getElementById('front-page-portal');
     const honorificStatus = document.getElementById('honorificStatus');
     const chatStream = document.getElementById('chatStream');
@@ -902,9 +822,8 @@ html_content = r'''<!DOCTYPE html>
     const sidebarPanel = document.getElementById('sidebarPanel');
     const dragResizer = document.getElementById('dragResizer');
 
-    /* ================= DRAGGABLE SIDEBAR LOGIC ================= */
     let isResizing = false;
-    dragResizer.addEventListener('mousedown', (e) => {
+    dragResizer.addEventListener('mousedown', () => {
       isResizing = true;
       dragResizer.classList.add('resizing');
       document.body.style.cursor = 'col-resize';
@@ -926,7 +845,6 @@ html_content = r'''<!DOCTYPE html>
       }
     });
 
-    /* ================= VOICE SYNTHESIS ================= */
     function speakText(text) {
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
@@ -937,7 +855,6 @@ html_content = r'''<!DOCTYPE html>
       }
     }
 
-    /* ================= INITIALIZE CLIENT SESSION ================= */
     loadDeviceSession();
 
     function initializeMonarchSession(title) {
@@ -963,7 +880,6 @@ html_content = r'''<!DOCTYPE html>
       speakText(msg);
     }
 
-    /* ================= CHAT UI & PERSISTENCE ================= */
     function addUserMessage(txt) {
       const b = document.createElement('div');
       b.className = 'chat-bubble user-bubble';
@@ -986,11 +902,9 @@ html_content = r'''<!DOCTYPE html>
       }
     }
 
-    /* ================= CHIT-CHAT & GEMINI-LIKE INTELLIGENCE ================= */
     function generateGeminiResponse(rawQuery) {
       const q = rawQuery.toLowerCase().trim();
 
-      // Greeting & creator queries
       if (q.includes('who are you') || q.includes('who created you') || q.includes('kone banaya') || q.includes('master')) {
         return `I am <strong>Arise UniBot</strong>, an AI University Guide and Academic Intelligence Explorer engineered with pride by <strong>Nirbhay Pratap Singh</strong>. I possess full access to 100+ accredited universities, dress codes, admissions, and intelligent counseling.`;
       }
@@ -999,7 +913,6 @@ html_content = r'''<!DOCTYPE html>
         return `Greetings, <strong>${localData.title}</strong>! I am operating at peak efficiency under the command of Nirbhay Pratap Singh. Tell me your career goals, favorite field (BCA, CSE, Medical, Law), or preferred state, and I will recommend the top universities for you.`;
       }
 
-      // Best University Recommender logic
       if (q.includes('suggest') || q.includes('best university') || q.includes('top university') || q.includes('recommend') || q.includes('best college')) {
         if (q.includes('bca') || q.includes('computer') || q.includes('coding') || q.includes('software')) {
           return `Based on comprehensive academic strength and career pathways, <strong>${localData.title}</strong>, here are top recommendations:<br><br>
@@ -1022,17 +935,13 @@ html_content = r'''<!DOCTYPE html>
         Tell me your preferred course or budget, and I will filter the ideal kingdom for you!`;
       }
 
-      // University direct search match
       const matched = universityRegistry.find(u => 
         u.name.toLowerCase().includes(q) || 
         u.keys.some(k => q.includes(k) || k.includes(q))
       );
 
-      if (matched) {
-        return buildUniversityCardHtml(matched);
-      }
+      if (matched) return buildUniversityCardHtml(matched);
 
-      // Dynamic Gemini-style analytical fallback
       return `
         I have analyzed your query: <strong>"${rawQuery}"</strong>, <strong>${localData.title}</strong>.<br><br>
         While compiling verified data records, here is an institutional snapshot:<br>
@@ -1075,7 +984,6 @@ html_content = r'''<!DOCTYPE html>
               <div class="uni-meta-cell" style="grid-column: span 2;"><strong>Flagship Programs</strong>${uni.courses}</div>
             </div>
 
-            <!-- DEDICATED DRESS CODE & UNIFORM SPECIFICATION -->
             <div class="dress-code-column">
               <div class="dress-title">👔 Mandatory Dress Code & Uniform Specification</div>
               <div class="dress-details">${uni.dress}</div>
@@ -1089,7 +997,6 @@ html_content = r'''<!DOCTYPE html>
       `;
     }
 
-    /* ================= DISPATCH QUERY ================= */
     function sendUserMessage() {
       const q = userInput.value.trim();
       if (!q) return;
@@ -1113,7 +1020,6 @@ html_content = r'''<!DOCTYPE html>
       if (e.key === 'Enter') sendUserMessage();
     }
 
-    /* ================= SIDEBAR DIRECTORY POPULATION ================= */
     function renderDirectoryList(list) {
       uniListContainer.innerHTML = '';
       list.forEach(u => {
@@ -1143,7 +1049,6 @@ html_content = r'''<!DOCTYPE html>
       renderDirectoryList(filtered);
     }
 
-    /* ================= ADVANCED TOOLS: PHOTO & VOICE ================= */
     function triggerCameraCapture() {
       addBotReply(`📷 <strong>Camera Activated, ${localData.title}:</strong> Visual sensory camera scanned the surrounding campus grounds. Architectural pattern matched to university database.`);
       speakText(`Visual camera engaged, ${localData.title}.`);
@@ -1193,9 +1098,3 @@ html_content = r'''<!DOCTYPE html>
   </script>
 </body>
 </html>
-'''
-
-with open("index.html", "w", encoding="utf-8") as f:
-    f.write(html_content)
-
-print(f"Generated index.html successfully. Size: {len(html_content)} bytes.")
